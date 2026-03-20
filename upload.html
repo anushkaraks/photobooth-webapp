@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload | Space Photobooth</title>
+
+  <link rel="icon" href="Assets/space-photobooth/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="StyleSheets/camera.css">
+
+  <style>
+    #uploadPhotoInput {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo -->
+  <div class="logo">
+    <img src="Assets/space-photobooth/logo-new.png" alt="Space Photobooth Logo">
+  </div>
+
+  <!-- Photobooth Container -->
+  <div class="photobooth-container">
+
+    <!-- Canvas (draw image here) -->
+    <canvas id="finalCanvas"></canvas>
+
+    <!-- Frame overlay ABOVE canvas -->
+    <img
+      class="frame-overlay"
+      src="Assets/space-photobooth/camerapage/frame.png"
+      alt="Photobooth Frame"
+    >
+
+    <!-- Decorative stars (optional) -->
+    <div class="star-container"></div>
+
+    <!-- Hidden file input -->
+    <input
+      type="file"
+      id="uploadPhotoInput"
+      accept="image/*"
+    >
+
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button id="uploadPhoto" type="button">Upload Photo</button>
+    <button id="readyButton" type="button" disabled hidden>Ready</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="Javascripts/upload.js"></script>
+  <script src="Javascripts/star.js"></script>
+
+</body>
+</html>

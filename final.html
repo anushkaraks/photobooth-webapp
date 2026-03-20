@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decorate & Download | Space Photobooth</title>
+
+  <link rel="icon" href="Assets/space-photobooth/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="StyleSheets/final.css">
+</head>
+<body>
+
+  <!-- LOGO -->
+  <div class="logo">
+    <img src="Assets/space-photobooth/logo-new.png" alt="Space Photobooth Logo">
+  </div>
+
+  <!-- STICKERS -->
+  <div class="heading-content">
+    <div class="sticker-container">
+      <h1>Add Stickers!</h1>
+      <p>(Drag to reposition)</p>
+
+      <div class="sticker-btns">
+        <button id="addNebula"  class="sticker-btn nebula-btn"  type="button"></button>
+        <button id="addPanda"   class="sticker-btn panda-btn"   type="button"></button>
+        <button id="addPlanet"  class="sticker-btn planet-btn"  type="button"></button>
+        <button id="addRainbow" class="sticker-btn rainbow-btn" type="button"></button>
+        <button id="addSnap"    class="sticker-btn snap-btn"    type="button"></button>
+        <button id="addSparkle" class="sticker-btn sparkle-btn" type="button"></button>
+        <button id="addStar"    class="sticker-btn star-btn"    type="button"></button>
+        <button id="reset"      class="sticker-btn reset-btn"   type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHOTO STRIP -->
+  <div class="photobooth-container">
+    <canvas id="finalCanvas"></canvas>
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="button-container">
+    <button id="downloadBtn" type="button">Download</button>
+    <button id="homeBtn" type="button">Home</button>
+  </div>
+
+  <script src="Javascripts/final.js"></script>
+
+</body>
+</html>

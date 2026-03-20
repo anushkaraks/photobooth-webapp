@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camera</title>
+
+  <link rel="icon" href="Assets/space-photobooth/favicon.png" type="image/x-icon" />
+  <link rel="stylesheet" href="StyleSheets/camera.css" />
+</head>
+
+<body>
+
+  <!-- Logo -->
+  <div class="logo">
+    <img src="Assets/space-photobooth/logo-new.png" alt="Logo">
+  </div>
+
+  <!-- Photobooth -->
+  <div class="photobooth-container" id="booth">
+
+    <!-- Live Camera Preview -->
+    <video id="liveVideo" autoplay playsinline muted></video>
+
+    <!-- Final Canvas Output -->
+    <!-- MUST match frame resolution -->
+    <canvas id="finalCanvas" width="1024" height="1536"></canvas>
+
+    <!-- Frame Overlay -->
+    <img 
+      class="frame-overlay" 
+      src="Assets/space-photobooth/camerapage/frame.png" 
+      alt="frame overlay"
+    />
+
+    <!-- Countdown -->
+    <div class="countdown-timer">3</div>
+
+    <!-- Decorative Effects -->
+    <div class="star-container"></div>
+
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button id="takePhoto">Capture</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="Javascripts/camera.js"></script>
+  <script src="Javascripts/star.js"></script>
+
+</body>
+</html>
