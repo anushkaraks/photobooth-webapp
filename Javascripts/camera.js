@@ -12,32 +12,28 @@ const WIDTH = 1024;
 const HEIGHT = 1536;
 const HALF = HEIGHT / 2;
 
-
 // ---------------- INIT ----------------
 window.addEventListener("load", () => {
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
-
-  canvas.style.display = "none";
-
   setupCamera();
   setupEvents();
 });
 
-
 // ---------------- CAMERA ----------------
 function setupCamera() {
   navigator.mediaDevices.getUserMedia({
-    video: { facingMode: "user" },
+    video: {
+      facingMode: "user",
+      width: { ideal: 1280 },
+      height: { ideal: 960 },
+      aspectRatio: { ideal: 4 / 3 }
+    },
     audio: false
   })
   .then(stream => {
     video.srcObject = stream;
-
-    video.onloadedmetadata = () => {
-      video.play();
-      moveVideoToHalf(0);
-    };
+    video.onloadedmetadata = () => video.play();
   })
   .catch(err => {
     console.error("Camera error:", err);
@@ -45,25 +41,19 @@ function setupCamera() {
   });
 }
 
-
-// ---------------- POSITION VIDEO ----------------
-function moveVideoToHalf(stage) {
-  video.style.top = stage === 0 ? "0%" : "50%";
-}
-
-
 // ---------------- COUNTDOWN ----------------
 function startCountdown(callback) {
   let count = 3;
-
   if (!countdownEl) return callback();
+
+  // Position countdown in the active half
+  countdownEl.style.top = photoStage === 0 ? "25%" : "75%";
 
   countdownEl.textContent = count;
   countdownEl.style.display = "flex";
 
   const interval = setInterval(() => {
     count--;
-
     if (count > 0) {
       countdownEl.textContent = count;
     } else {
@@ -74,14 +64,9 @@ function startCountdown(callback) {
   }, 1000);
 }
 
-
 // ---------------- CAPTURE ----------------
 function capturePhoto() {
-
-  canvas.style.display = "block";
-
   const yOffset = photoStage === 0 ? 0 : HALF;
-
   const vW = video.videoWidth;
   const vH = video.videoHeight;
 
@@ -108,7 +93,6 @@ function capturePhoto() {
   const tempCanvas = document.createElement("canvas");
   tempCanvas.width = WIDTH;
   tempCanvas.height = HALF;
-
   const tempCtx = tempCanvas.getContext("2d");
 
   tempCtx.save();
@@ -117,42 +101,36 @@ function capturePhoto() {
   tempCtx.drawImage(video, sx, sy, sw, sh, 0, 0, WIDTH, HALF);
   tempCtx.restore();
 
-  // ---- COPY PERFECT HALF ----
+  // ---- COPY TO MAIN CANVAS ----
   ctx.drawImage(tempCanvas, 0, yOffset);
+
+  // ---- SHOW CANVAS OVER CAPTURED HALF ----
+  canvas.style.opacity = "1";
 
   photoStage++;
 
   if (photoStage === 1) {
-    moveVideoToHalf(1);
+    // Move video preview to bottom half for second shot
+    video.style.top = "50%";
     takePhotoBtn.disabled = false;
-  } 
-  else if (photoStage === 2) {
+  } else if (photoStage === 2) {
     finalizeStrip();
   }
 }
 
-
 // ---------------- FINALIZE ----------------
 function finalizeStrip() {
-
   video.style.display = "none";
-
-  localStorage.setItem(
-    "photoStrip",
-    canvas.toDataURL("image/png")
-  );
-
+  localStorage.setItem("photoStrip", canvas.toDataURL("image/png"));
   setTimeout(() => {
     window.location.href = "final.html";
   }, 100);
 }
 
-
 // ---------------- EVENTS ----------------
 function setupEvents() {
   takePhotoBtn.addEventListener("click", () => {
     if (photoStage > 1) return;
-
     takePhotoBtn.disabled = true;
     startCountdown(capturePhoto);
   });
